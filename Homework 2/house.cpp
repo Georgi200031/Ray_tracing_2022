@@ -75,7 +75,7 @@ int main()
 				house1.build_door();
 			else if(start_triangle.y <= rowldx && start_rectangle.y>=rowldx  && left <= colldx && right >= colldx)
                                 house1.build_walls();	
-			else if(600<=rowldx)
+			else if(start_rectangle.y<=rowldx)
 				ppmFileStream << 169 << " " << " " << 169 << " " << 169 << "\t";
 			else
 				ppmFileStream << 169 << " " << " " << 169 << " " << 169 << "\t";
