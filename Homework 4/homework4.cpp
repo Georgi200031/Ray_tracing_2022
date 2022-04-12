@@ -10,34 +10,21 @@ static const int imageHeight = 1080;
 static const int maxColorComponent = 255;
 static const int maxRandColors = 255;
 
-std::ofstream ppmFileStream("homework4.ppm", std::ios::out | std::ios::binary);
-
-
-struct vec_direct
-{
-	double x,y,z;
-};
+std::ofstream ppmFileStream("homework3.ppm", std::ios::out | std::ios::binary);
 
 struct vec_origin
 {
-	int x,y,z;
-};
-
-std::vector<vec_origin>CRTVectorOrigin;
-std::vector<vec_direct>CRTVectorDirection;
-
-struct vector
-{
-	double x;
-	double y;
+	public :
+		double x,y,z;
+	double operator+()
+	{
+		return x + v.x, y + v.y, z + v.z;
+	}
+	double operator-()
+	{
+		return x - v.x, y - v.y, z - v.z;
+	}
 }rayDir;
-
-struct triangle
-{
-	double x,y,z;
-}point_triangle;
-
-std::vector<triangle> CRTtriangle;
 
 class create_camera_rays
 {
@@ -67,33 +54,10 @@ class create_camera_rays
 				rayDir.x = rayDir.x / abs(Length);	
 				rayDir.y = rayDir.y / abs(Length); 
 			}
-		void store_ray_with_direct_origin(int index)
-			{
-				CRTVectorDirection[index].x = rayDir.x;
-				CRTVectorDirection[index].y = rayDir.y;
-				CRTVectorDirection[index].z = 0;
-				
-				CRTVectorOrigin[index].x = 0;
-				CRTVectorOrigin[index].y = 0;
-				CRTVectorOrigin[index].z = 0;
-			}
 };
 
 int main()
 {
-	CRTtriangle[0].x = -1.75;
-	CRTtriangle[0].y = -1.75;
-	CRTtriangle[0].z = -3;
-	
-	CRTtriangle[1].x = 1.75;
-	CRTtriangle[1].y = -1.75;
-	CRTtriangle[1].z = -3;
-	
-	CRTtriangle[2].x = 0;
-	CRTtriangle[2].y = 1.75;
-	CRTtriangle[2].z = -3;
-	
-	int index = 0;
 	create_camera_rays ray;	
 	ppmFileStream << "P3\n";
 	ppmFileStream << imageWidth << " " << imageHeight << "\n";
@@ -102,7 +66,7 @@ int main()
 	{	
 		for(int colIdx=0; colIdx < imageWidth; colIdx++)
 		{
-				index++;
+				
 				rayDir.x = rowIdx;
 				rayDir.y = colIdx;
 				ray.find_center();
@@ -110,14 +74,14 @@ int main()
 				ray.convert_NDC_to_screen();
 				ray.aspect_ratio();
 				ray.normalaize_ray();
-				ray.store_ray_with_direct_origin(index);
 				
-				ppmFileStream << rayDir.x * 255 << " " << rayDir.y * 255 << " " << 0 << crtTab;
+				ppmFileStream << (int)(((rayDir.x + 1) / 2.0) * 255) << " ";
+            			ppmFileStream << (int)(((rayDir.y + 1) / 2.0) * 255) << " ";
+            			ppmFileStream << 0 << "\t";		
+		
 		}	
 		ppmFileStream << crtNewLine;
 	}
 	ppmFileStream.close();
 	return 0;
 }
-
-
