@@ -12,28 +12,11 @@ static const int maxRandColors = 255;
 
 std::ofstream ppmFileStream("homework3.ppm", std::ios::out | std::ios::binary);
 
-
-struct vec_direct
-{
-	double x,y,z;
-};
-
 struct vec_origin
 {
-	int x,y,z;
-};
-
-std::vector<vec_origin>CRTVectorOrigin;
-std::vector<vec_direct>CRTVectorDirection;
-
-struct vector
-{
-	double x;
-	double y;
+	public :
+		double x,y,z;
 }rayDir;
-
-
-
 
 class create_camera_rays
 {
@@ -63,16 +46,6 @@ class create_camera_rays
 				rayDir.x = rayDir.x / abs(Length);	
 				rayDir.y = rayDir.y / abs(Length); 
 			}
-		void store_ray_with_direct_origin(int index)
-			{
-				CRTVectorDirection[index].x = rayDir.x;
-				CRTVectorDirection[index].y = rayDir.y;
-				CRTVectorDirection[index].z = 0;
-				
-				CRTVectorOrigin[index].x = 0;
-				CRTVectorOrigin[index].y = 0;
-				CRTVectorOrigin[index].z = 0;
-			}
 };
 
 int main()
@@ -85,6 +58,7 @@ int main()
 	{	
 		for(int colIdx=0; colIdx < imageWidth; colIdx++)
 		{
+				
 				rayDir.x = rowIdx;
 				rayDir.y = colIdx;
 				ray.find_center();
@@ -93,12 +67,13 @@ int main()
 				ray.aspect_ratio();
 				ray.normalaize_ray();
 				
-				
-				ppmFileStream << rayDir.x * 255 << " " << rayDir.y * 255 << " " << 0 << crtTab;
+				ppmFileStream << (int)(((rayDir.x + 1) / 2.0) * 255) << " ";
+            			ppmFileStream << (int)(((rayDir.y + 1) / 2.0) * 255) << " ";
+            			ppmFileStream << 0 << "\t";		
+		
 		}	
 		ppmFileStream << crtNewLine;
 	}
 	ppmFileStream.close();
 	return 0;
 }
-
