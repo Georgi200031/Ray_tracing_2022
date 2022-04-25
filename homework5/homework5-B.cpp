@@ -39,7 +39,7 @@ int main()
 	{	
 		for(int colIdx=0; colIdx < imageWidth; colIdx++)
 		{
-				Vector ray = Vector(rowIdx, colIdx, -1.0);
+				Vector ray = Vector(colIdx, rowIdx, -1.0);
 				ray.find_center();
 				ray.convert_raster_to_NDC();
 				ray.convert_NDC_to_screen();
