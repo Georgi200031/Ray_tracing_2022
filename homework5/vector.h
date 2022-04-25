@@ -1,8 +1,10 @@
 #ifndef VECTOR_H
 #define VECTOR_H
+#include <iostream>
+#include <stdlib.h>
 static const int imageWidth = 1920;
 static const int imageHeight = 1080;
-
+static const double EPSILON = 1e-7f;
 
 class Vector
 {
@@ -22,7 +24,12 @@ class Vector
 		Vector operator*(double) const;
 
 		Vector cross(const Vector&) const;
-						
+		
+		//Vector dot(const Vector&) const;
+		double dot(const Vector& v) const
+			{
+        			return (X_Dir * v.X_Dir) + (Y_Dir * v.Y_Dir) + (Z_Dir * v.Z_Dir);
+			}						
 		void find_center()
 			{
 				X_Dir = X_Dir + 0.5;
@@ -30,13 +37,13 @@ class Vector
 			}
 		void convert_raster_to_NDC()
 			{
-				X_Dir = X_Dir / imageWidth;
+				X_Dir = X_Dir / imageHeight * (imageWidth / imageHeight);
                                 Y_Dir = Y_Dir / imageHeight;
 			}
 		void convert_NDC_to_screen()
 			{
 				X_Dir = ((2.0 * X_Dir)-1.0);
-				Y_Dir = -1*(1.0 - (2.0 * Y_Dir));
+				Y_Dir = (1.0 - (2.0 * Y_Dir));
 			}			
 		void aspect_ratio()
 			{
@@ -48,13 +55,38 @@ class Vector
 				X_Dir = X_Dir / abs(Length);	
 				Y_Dir = Y_Dir / abs(Length); 
 			}
-		
-	
-		
-		double dot(const Vector& v) const 
+		void MOD()
 			{
-				return (X_Dir * v.X_Dir) + (Y_Dir * v.Y_Dir) + (Z_Dir * v.Z_Dir);
-			};
+				//if(X_Dir < 0)
+				//	{	
+						X_Dir = abs(X_Dir);
+				//	} 
+				//if(Y_Dir < 0)
+                                    //    {
+                                                Y_Dir = abs(Y_Dir);
+                                  //      }
+				//if(Z_Dir < 0)
+                                       // {
+                                                Z_Dir = abs(Z_Dir);
+                                       // }
+					
+			}
+		double getLen() const 
+			{ 
+				return sqrt(X_Dir * X_Dir + Y_Dir * Y_Dir + Z_Dir * Z_Dir); 
+			}	
+		void normalize() 
+			{
+            			double len = this->getLen();
+            			double coeff = 1 / len;
+            			X_Dir = X_Dir * coeff;
+            			Y_Dir = Y_Dir * coeff;
+            			Z_Dir = Z_Dir * coeff;
+        		}		
+		void print()
+			{
+				std::cout<<X_Dir<<" "<<Y_Dir<<" "<<Z_Dir<<std::endl;
+			}
 };
 
 Vector::Vector(double X_Dir,double Y_Dir,double Z_Dir) //set x,y,z;
@@ -84,4 +116,5 @@ Vector Vector::cross(const Vector& v) const
 	 Z_Dir * v.X_Dir - X_Dir * v.Z_Dir,
          X_Dir * v.Y_Dir - Y_Dir * v.X_Dir); 
 }
+
 #endif
