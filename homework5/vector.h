@@ -37,7 +37,7 @@ class Vector
 			}
 		void convert_raster_to_NDC()
 			{
-				X_Dir = X_Dir / imageHeight * (imageWidth / imageHeight);
+				X_Dir = X_Dir / (imageHeight * (imageWidth / imageHeight));
                                 Y_Dir = Y_Dir / imageHeight;
 			}
 		void convert_NDC_to_screen()
@@ -48,12 +48,6 @@ class Vector
 		void aspect_ratio()
 			{
 				X_Dir = X_Dir * (imageWidth/imageHeight);
-			}
-		void normalaize_ray()
-			{
-				double Length = sqrt(pow(X_Dir,2) + pow(Y_Dir,2));
-				X_Dir = X_Dir / abs(Length);	
-				Y_Dir = Y_Dir / abs(Length); 
 			}
 		void MOD()
 			{
