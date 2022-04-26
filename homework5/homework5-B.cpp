@@ -26,7 +26,7 @@ int main()
 	Vector origin = Vector(0,0,0);
 	
 	Triangle triangleOne = Triangle(Vector(-1.75,-1.75,-3),Vector(1.75,-1.75,-3),Vector(0,1.75,-3));
-	Triangle triangleTwo = Triangle(Vector(1.75, -1.75, -3), Vector(3, -2, -3), Vector(2,2, -3));
+	Triangle triangleTwo = Triangle(Vector(1.75, -1.75, -3), Vector(5.25, -1.75, -3), Vector(3.5,1.75, -3));
 	
 	double rpDist = MOD((triangleOne.vert[0]).dot(triangleOne.normal()));
 	
