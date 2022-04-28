@@ -38,7 +38,7 @@ class Vector
 			}
 		void convert_raster_to_NDC()
 			{
-				X_Dir = X_Dir / (imageHeight * (imageWidth / imageHeight));
+				X_Dir /= (double)imageWidth * (imageWidth / imageHeight);
                                 Y_Dir = Y_Dir / imageHeight;
 			}
 		void convert_NDC_to_screen()

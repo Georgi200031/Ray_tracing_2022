@@ -8,14 +8,24 @@ class Camera
 		Vector Ray;
 		Vector Pos; 
 		Vector Origin;
-		void pan(double angle);
+		void dolly(double dist);
 		void truck(double dist);
+		void pedestal(double dist);
+		void pan(double angle);
 		void tilt(double angle);
-		void roll(double angle);
+		void roll(double angle);	
 };
+void Camera::dolly(double dist)
+{
+	Ray = Ray.operator+(Vector(Ray.X_Dir, Ray.Y_Dir, Ray.Z_Dir + dist));
+}
 void Camera::truck(double dist)
 {
 	Ray = Ray.operator+(Vector(Ray.X_Dir + dist, Ray.Y_Dir, Ray.Z_Dir));
+}
+void Camera::pedestal(double dist)
+{
+	Ray = Ray.operator+(Vector(Ray.X_Dir, Ray.Y_Dir + dist, Ray.Z_Dir));
 }
 void Camera::pan(double angle)
 {

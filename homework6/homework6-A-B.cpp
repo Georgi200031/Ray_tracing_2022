@@ -13,7 +13,7 @@
 static const int maxColorComponent = 255;
 //static const int maxRandColors = 255;
 
-std::ofstream ppmFileStream("homework6-A-B.ppm", std::ios::out | std::ios::binary);
+std::ofstream ppmFileStream("homework6-D-origin-dolly-truck-pedestal-pan-tilt-roll.ppm", std::ios::out | std::ios::binary);
 
 double MOD(double x)
 {
@@ -40,10 +40,17 @@ int main()
 				camera.Ray.convert_raster_to_NDC();
 				camera.Ray.convert_NDC_to_screen();
 				camera.Ray.aspect_ratio();
+				camera.dolly(1);
+				
+				camera.truck(1);
+				camera.pedestal(1);
+				camera.pan(30);
+				camera.tilt(30);
+				camera.roll(30);
 				//camera.pan(30);
 				//camera.truck(-2);
 				//camera.tilt(-30);
-				camera.roll(30);
+				//camera.roll(30);
 								
 				camera.Ray.normalize();
 				camera.Pos = Vector(0,0,1);
