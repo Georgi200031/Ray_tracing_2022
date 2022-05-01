@@ -8,6 +8,7 @@ class Camera
 		Vector Ray;
 		Vector Pos; 
 		Vector Origin;
+		void orientation();
 		void dolly(double dist);
 		void truck(double dist);
 		void pedestal(double dist);
@@ -15,6 +16,11 @@ class Camera
 		void tilt(double angle);
 		void roll(double angle);	
 };
+void Camera::orientation(double a1,a2,a3,a4,a5,a6,a7,a8,a9)
+{
+	Matrix mat = Matrix(a1,a2,a3,a4,a5,a6,a7,a8,a9);
+	Ray = Mat.operator*(Ray);
+}
 void Camera::dolly(double dist)
 {
 	Ray = Ray.operator+(Vector(Ray.X_Dir, Ray.Y_Dir, Ray.Z_Dir + dist));
