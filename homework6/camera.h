@@ -8,7 +8,7 @@ class Camera
 		Vector Ray;
 		Vector Pos; 
 		Vector Origin;
-		void orientation();
+		void orientation(double,double,double,double,double,double ,double,double,double);
 		void dolly(double dist);
 		void truck(double dist);
 		void pedestal(double dist);
