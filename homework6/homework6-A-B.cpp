@@ -51,7 +51,7 @@ int main()
 				//camera.truck(-2);
 				//camera.tilt(-30);
 				//camera.roll(30);
-								
+				camera.orientation(1,0,0,0,1,0,0,0,1);			
 				camera.Ray.normalize();
 				camera.Pos = Vector(0,0,1);
 				camera.Origin = camera.Pos;
