@@ -21,7 +21,7 @@ void Camera::orientation(double a1,double a2,double a3,
 			 double a7,double a8,double a9)
 {
 	Matrix mat = Matrix(a1,a2,a3,a4,a5,a6,a7,a8,a9);
-	Ray = Mat.operator*(Ray);
+	Ray = mat.operator*(Ray);
 }
 void Camera::dolly(double dist)
 {
